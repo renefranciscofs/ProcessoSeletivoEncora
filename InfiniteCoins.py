@@ -1,29 +1,31 @@
 def makeChange(n):
     """
-    A função abaixo irá calcular todas as formas de representar 'n' centavos
-    utilizando um número infinito de 'quarters' (25 centavos), 'dimes' (10 centavos), 'nickels' (5 centavos) e 'pennies' (1 centavo).
-    Cada combinação será representada como uma lista ['quarters', 'dimes, ' nickels', 'pennies'].
-    Essa função funcionará da seguinte forma:
-    - Iterará todas as possibilidade de 'quarters' (de 0 para a maior possível).
-    - A partir do número de 'quarters', iterará todas as possibilidades de 'dimes'.
-    - Para cada combinação de 'quarters' e 'dimes', iterará a possibilidade do número de 'nickels'.
-    - Calculará o restante para ser representado em 'pennies'.
-    - Se o restante do valor não for negativo, adicionar a combinação para o set de resultado.
-    - Retornará o set com todas as combinações válidas.
+    The function below will calculate all possible ways to represent `n` cents
+    using an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents),
+    and pennies (1 cent). Each combination is represented as a list [quarters, dimes, nickels, pennies].
+
+    The function works as follows:
+    - Iterate over all possible numbers of quarters (from 0 to the maximum possible).
+    - For each number of quarters, iterate over all possible numbers of dimes.
+    - For each combination of quarters and dimes, iterate over all possible numbers of nickels.
+    - Calculate the remaining amount to be represented by pennies.
+    - If the remaining amount is non-negative, add the combination to the result set as a list.
+    - Return the set of all valid combinations.
     """
-    result = set() # Set para armazenar as combinações únicas
+    result = set()  # Use a set to store unique combinations
 
-    # Iteração de todas as possibilidades de 'quarters'abs
+    # Iterate over all possible numbers of quarters
     for quarters in range(n // 25 + 1):
-        # Iteração para todas as possibilidade de 'dimes'
+        # Iterate over all possible numbers of dimes
         for dimes in range((n - quarters * 25) // 10 + 1):
-            # Iteração para todas as possibilidades de 'nickels'
-            for nickels in range((n- quarters * 25 - dimes * 10) // 5 + 1):
-                # Calcular o valor remanescente a ser representado por 'pennies'
+            # Iterate over all possible numbers of nickels
+            for nickels in range((n - quarters * 25 - dimes * 10) // 5 + 1):
+                # Calculate the remaining amount to be represented by pennies
                 pennies = n - (quarters * 25 + dimes * 10 + nickels * 5)
-                # Verificando se o valor remanescente não é negativo
+                # Ensure the remaining amount is non-negative
                 if pennies >= 0:
-                    # Adicionando a combinação ao set de resultado como uma tupla
-                    result.add((quarters, dimes, nickels, pennies))
+                    # Add the combination to the result set as a list
+                    result.add(tuple([quarters, dimes, nickels, pennies]))
 
+    # Convert the set of tuples to a set of lists for the final output
     return [list(combination) for combination in result]
